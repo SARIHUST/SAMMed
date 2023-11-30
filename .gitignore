@@ -1,0 +1,8 @@
+imgs_4/
+imgs_5/
+1.png
+prompt_models/
+*.pth
+runs/
+*.png
+.idea/
