@@ -10,7 +10,7 @@ Download the pre-processed [**Prostate**](https://drive.google.com/file/d/1-SCjN
 
 ## Pretrained Model
 
-We use the checkpoint of SAM in [vit_b](https://github.com/facebookresearch/segment-anything) version. Don't forget to follow the installation part of SAM.
+We use the checkpoint of SAM in [vit_b](https://github.com/facebookresearch/segment-anything) version. Don't forget to follow the installation part of SAM. (We apologize that we currently can not provide a clear `requirements.txt` file for you because our server is down. It might help to use the file provided by [SAMUS](https://github.com/xianlin7/samus))
 
 ## Training process
 
