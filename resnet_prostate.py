@@ -18,10 +18,9 @@ import matplotlib.pyplot as plt
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms
 from torchvision.utils import save_image
-import segmentation_models_pytorch as smp
 import sys
 
-from utils.loss import dice_score
+from utils.utils import dice_score
 
 
 def compute_project_term(mask_scores, gt_bitmasks):
@@ -62,7 +61,7 @@ def test(args, validLoader, unet):
             dataid += 1
         test_dice = []
         tqdmtest = tqdm(validLoader[i], ncols=150)
-        for iteration, (image, mask, bbox) in enumerate(tqdmtest):
+        for iteration, (image, mask, bbox, id) in enumerate(tqdmtest):
             image, mask = image.cuda(), mask.cuda()
             _, mask_predictions = unet(image)
             mask_predictions = torch.sigmoid(mask_predictions)
@@ -92,7 +91,7 @@ def main():
     parser.add_argument('--epoch', type=int, default=100,
                         help='training epoch')
     parser.add_argument('--data_path', type=str,
-                        default='/root/autodl-tmp/prostate', help='path to dataset')
+                        default='data/prostate', help='path to dataset')
     parser.add_argument('--domain', type=int, default=0, help='domain id')
 
     args = parser.parse_args()
@@ -142,7 +141,7 @@ def main():
         epoch_loss = []
         epoch_dice = []
         tqdmbar = tqdm(trainLoader, ncols=150)
-        for iteration, (image, mask, bbox) in enumerate(tqdmbar):
+        for iteration, (image, mask, bbox, id) in enumerate(tqdmbar):
             image, mask = image.cuda(), mask.cuda()
 
             # save_image(mask.float(),'1.png')
@@ -175,7 +174,7 @@ def main():
             if val_dice > maxdice:
                 maxdice = val_dice
                 maxalldice = all_dice
-                torch.save(net, f'./prompt_model/best_{args.domain}.pth')
+                torch.save(net, f'./prompt_models/best_{args.domain}.pth')
     #     writer.add_scalars("loss",{"train": round(np.mean(epoch_loss), 4),},epoch,)
     #     writer.add_scalars("dice",{"train": round(np.mean(epoch_dice), 4),"val": round(val_dice, 4),},epoch,)
     print('Final result. Best Dice:', maxdice, maxalldice)

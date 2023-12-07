@@ -87,14 +87,8 @@ def test(args, validSets, validLoaders, prompt_model):
 def main():
     parser = argparse.ArgumentParser(description='SAM4Med')
     parser.add_argument('--input_size', type=int, default=512, help='the image size')
-    parser.add_argument('--vit_name', type=str, default='vit_b', help='vit model of sam')
-    parser.add_argument('--sam_ckpt', type=str, default='../SAMUS-main/SAM/sam_vit_b_01ec64.pth',
-                        help='Pretrained checkpoint of SAM')
-    parser.add_argument('--batch_size', type=int, default=2, help='batch_size per gpu')
     parser.add_argument('--gpu', type=str, default='0', help='gpu device')
-    parser.add_argument('--lr', type=float, default=0.0001, help='learning rate')
-    parser.add_argument('--epoch', type=int, default=250, help='training epoch')
-    parser.add_argument('--data_path', type=str, default='/root/autodl-tmp/prostate', help='path to dataset')
+    parser.add_argument('--data_path', type=str, default='data/prostate', help='path to dataset')
     parser.add_argument('--domain', type=int, default=0, help='domain id')
     parser.add_argument('--thresh', type=float, default=0.75)
 
@@ -157,33 +151,3 @@ def main():
         
 if __name__ == '__main__':
     main()
-    # parser = argparse.ArgumentParser(description='SAM4Med')
-    # parser.add_argument('--input_size', type=int, default=512, help='the image size')
-    # parser.add_argument('--vit_name', type=str, default='vit_b', help='vit model of sam')
-    # parser.add_argument('--sam_ckpt', type=str, default='../SAMUS-main/SAM/sam_vit_b_01ec64.pth',
-    #                     help='Pretrained checkpoint of SAM')
-    # parser.add_argument('--batch_size', type=int, default=2, help='batch_size per gpu')
-    # parser.add_argument('--gpu', type=str, default='0', help='gpu device')
-    # parser.add_argument('--lr', type=float, default=0.0001, help='learning rate')
-    # parser.add_argument('--epoch', type=int, default=250, help='training epoch')
-    # parser.add_argument('--data_path', type=str, default='/root/autodl-tmp/prostate', help='path to dataset')
-    # parser.add_argument('--domain', type=int, default=0, help='domain id')
-    # parser.add_argument('--thresh', type=float, default=0.9)
-
-    # args = parser.parse_args()
-    # prompt_model = torch.load(f'prompt_models/final_{args.domain}.pth').cuda()
-    # prompt_model.eval()
-    
-    # trainset = Prostate(base_dir=args.data_path, split='train', domain_idx=5)
-    # if len(trainset) % 2 == 0:
-    #     print('ok')
-    #     exit()
-    # img, mask, bbox, id = trainset.__getitem__(len(trainset) - 1)
-    # print(id)
-    # img = img.unsqueeze(0)
-    # _, prompt_masks = prompt_model(img.cuda())
-    # print(prompt_masks)
-    # rebox = filter_mask(prompt_masks[0] > args.thresh)
-    # save_dir = os.path.join(trainset.base_dir, trainset.domain_name[trainset.domain_idx], f'src_domain_idx_{args.domain}')
-    # np.save(os.path.join(save_dir, id), rebox)
-    

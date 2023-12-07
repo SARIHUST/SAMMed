@@ -76,7 +76,7 @@ def main():
     parser = argparse.ArgumentParser(description='SAM4Med')
     parser.add_argument('--input_size', type=int, default=512, help='the image size')
     parser.add_argument('--vit_name', type=str, default='vit_b', help='vit model of sam')
-    parser.add_argument('--sam_ckpt', type=str, default='../SAMUS-main/SAM/sam_vit_b_01ec64.pth',
+    parser.add_argument('--sam_ckpt', type=str, default='SAM/sam_vit_b_01ec64.pth',
                         help='Pretrained checkpoint of SAM')
     parser.add_argument('--batch_size', type=int, default=1, help='batch_size per gpu')
     parser.add_argument('--gpu', type=str, default='0', help='gpu device')

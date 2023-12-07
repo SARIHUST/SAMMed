@@ -88,7 +88,7 @@ class Prostate(Dataset):
 if __name__ == '__main__':
     from torch.utils.data.dataloader import DataLoader
 
-    base_dir = '/root/autodl-tmp/prostate'
+    base_dir = 'data/prostate'
     trainset = Prostate(base_dir=base_dir, src_domain=0, split='train', domain_idx=1)
     trainloader = DataLoader(trainset, batch_size=2, shuffle=False, num_workers=4, pin_memory=True)
     for i, (img, mask, bbox, bbox_gt) in enumerate(trainloader):
